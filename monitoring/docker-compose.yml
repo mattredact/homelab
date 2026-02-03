@@ -1,6 +1,6 @@
 services:
   prometheus:
-    image: prom/prometheus:v3.2.1
+    image: prom/prometheus:v3.9.1
     container_name: prometheus
     hostname: prometheus
     restart: unless-stopped
@@ -32,7 +32,7 @@ services:
       - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
 
   grafana:
-    image: grafana/grafana:11.5.2
+    image: grafana/grafana:12.3.2
     container_name: grafana
     hostname: grafana
     restart: unless-stopped
@@ -66,7 +66,7 @@ services:
       - "traefik.http.services.grafana.loadbalancer.server.port=3000"
 
   node_exporter:
-    image: prom/node-exporter:v1.9.0
+    image: prom/node-exporter:v1.10.2
     container_name: node_exporter
     hostname: node_exporter
     restart: unless-stopped

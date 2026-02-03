@@ -1,6 +1,6 @@
 services:
   nebula-sync:
-    image: ghcr.io/lovelaze/nebula-sync:v1.3.0
+    image: ghcr.io/lovelaze/nebula-sync:v0.11.1
     container_name: nebula-sync
     restart: unless-stopped
     user: 1001:1001
