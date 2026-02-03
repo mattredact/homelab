@@ -6,6 +6,5 @@
       "matchManagers": ["docker-compose"],
       "enabled": true
     }
-  ],
-  "schedule": ["before 6am on monday"]
+  ]
 }
