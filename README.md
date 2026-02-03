@@ -5,7 +5,7 @@ Self-hosted services running on a single Docker host behind Traefik.
 ## Services
 
 - **Traefik** - Reverse proxy with automatic SSL via Cloudflare DNS
-- **Bitwarden** - Self-hosted password manager (Lite/Vaultwarden)
+- **Bitwarden** - Self-hosted password manager (Lite)
 - **Prometheus** - Metrics collection
 - **Grafana** - Dashboards and visualization
 - **Node Exporter** - Host metrics
