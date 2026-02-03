@@ -18,14 +18,23 @@ scrape_configs:
         labels:
           instance: 'pihole-secondary'
 
-  # DNS Service Metrics - Unbound
-  - job_name: 'unbound'
+  # DNS Service Metrics
+  - job_name: 'unbound-pi'
     static_configs:
-      - targets: ['${PIHOLE_PRIMARY_IP}:9167']
-        labels:
-          instance: 'pihole-primary'
       - targets: ['${PIHOLE_SECONDARY_IP}:9167']
-        labels:
-          instance: 'pihole-secondary'
     scrape_interval: 30s
     scrape_timeout: 5s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'unbound-pi'
+
+  - job_name: 'unbound-lxc'
+    static_configs:
+      - targets: ['${PIHOLE_PRIMARY_IP}:9167']
+    scrape_interval: 30s
+    scrape_timeout: 5s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'unbound-lxc'
