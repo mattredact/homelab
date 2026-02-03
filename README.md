@@ -1,123 +1,80 @@
-# Docker Stack
+# Homelab Docker Stack
 
-Self-hosted services on a single Docker host.
+Self-hosted services running on a single Docker host behind Traefik.
 
 ## Services
 
-| Service | Purpose | Version |
-|---------|---------|---------|
-| traefik | Reverse proxy + SSL | v3.3.3 |
-| bitwarden | Password manager | 2025.12.2 |
-| prometheus | Metrics collection | v3.2.1 |
-| grafana | Dashboards | 11.5.2 |
-| node_exporter | Host metrics | v1.9.0 |
-| homepage | Dashboard | v1.2.0 |
-| nebula-sync | Pi-hole sync | v1.3.0 |
+- **Traefik** - Reverse proxy with automatic SSL via Cloudflare DNS
+- **Bitwarden** - Self-hosted password manager (Lite/Vaultwarden)
+- **Prometheus** - Metrics collection
+- **Grafana** - Dashboards and visualization
+- **Node Exporter** - Host metrics
+- **Homepage** - Service dashboard
+- **Nebula-sync** - Pi-hole configuration sync
 
-## Setup
-
-### 1. Clone and configure
+## Quick Start
 
 ```bash
-cd ~/docker-apps  # or wherever you want it
+git clone https://github.com/mattredact/homelab.git
+cd homelab
 
-# Copy .env.example and fill in values
+# Configure environment
 cp .env.example .env
-vim .env
-```
+vim .env  # Fill in all values
 
-### 2. Copy secrets (not in git)
+# Add secrets (not in git)
+mkdir -p traefik/data nebula-sync/secrets homepage/config
+# Copy cf_api_token.txt, primary.txt, replicas.txt, homepage config
 
-```bash
-# Traefik Cloudflare token
-mkdir -p traefik/data
-cp /path/to/cf_api_token.txt traefik/data/
-
-# Nebula-sync Pi-hole credentials
-mkdir -p nebula-sync/secrets
-cp /path/to/primary.txt nebula-sync/secrets/
-cp /path/to/replicas.txt nebula-sync/secrets/
-
-# Homepage config (has API keys)
-mkdir -p homepage/config
-cp /path/to/homepage-config/* homepage/config/
-```
-
-### 3. Create network and deploy
-
-```bash
+# Create network and deploy
 docker network create proxy
 ./scripts/deploy.sh
 ```
 
-## Environment Variables
+## Configuration
 
-All secrets live in `.env` (never committed):
+All sensitive values use environment variables from `.env`:
 
-```bash
-DOMAIN=              # e.g., home.example.com
-ACME_EMAIL=          # For Let's Encrypt
-
-# Internal IPs
-DOCKER_HOST_IP=
-PIHOLE_PRIMARY_IP=
-PIHOLE_SECONDARY_IP=
-SYNOLOGY_IP=
-UNIFI_IP=
-PROXMOX_IP=
-
-# Service credentials
-TRAEFIK_BASIC_AUTH=
-GRAFANA_ADMIN_USER=
-GRAFANA_ADMIN_PASSWORD=
-BW_INSTALLATION_ID=
-BW_INSTALLATION_KEY=
+```
+DOMAIN                  # Your domain (e.g., home.example.com)
+ACME_EMAIL              # Let's Encrypt email
+DOCKER_HOST_IP          # Docker host IP
+PIHOLE_PRIMARY_IP       # Primary Pi-hole
+PIHOLE_SECONDARY_IP     # Secondary Pi-hole
+SYNOLOGY_IP             # NAS IP
+UNIFI_IP                # UniFi controller
+PROXMOX_IP              # Proxmox host
+GRAFANA_ADMIN_USER      # Grafana admin username
+GRAFANA_ADMIN_PASSWORD  # Grafana admin password
+TRAEFIK_BASIC_AUTH      # htpasswd string for Traefik dashboard
+BW_INSTALLATION_ID      # Bitwarden installation ID
+BW_INSTALLATION_KEY     # Bitwarden installation key
 ```
 
-## Templates
+Template files (`*.template`) are processed by `deploy.sh` using `envsubst`.
 
-Config files with IPs/domains use templates + `envsubst`:
-
-| Template | Generated | Variables |
-|----------|-----------|-----------|
-| `traefik/data/traefik.yml.template` | `traefik.yml` | `ACME_EMAIL` |
-| `traefik/data/config.yml.template` | `config.yml` | `DOMAIN`, `*_IP` |
-| `monitoring/config/prometheus/prometheus.yml.template` | `prometheus.yml` | `*_IP` |
-
-The deploy script generates these automatically.
-
-## What's NOT in git
-
-- `.env` - all secrets
-- `traefik/data/traefik.yml` - generated
-- `traefik/data/config.yml` - generated
-- `traefik/data/acme.json` - SSL certs
-- `traefik/data/cf_api_token.txt` - Cloudflare API
-- `monitoring/config/prometheus/prometheus.yml` - generated
-- `homepage/config/` - contains API keys
-- `nebula-sync/secrets/` - Pi-hole credentials
-- `*/data/` - persistent volumes
-
-## Deploy
+## Deployment
 
 ```bash
-# Full deploy (generates configs + restarts all)
+# Full deploy
 ./scripts/deploy.sh
 
-# Single service
-cd traefik && docker compose up -d
-
-# Update images
-cd bitwarden && docker compose pull && docker compose up -d
+# Single service (from repo root)
+source .env && cd monitoring && docker compose up -d
 ```
 
-## Renovate
+## Updates
 
-This repo uses [Renovate](https://github.com/apps/renovate) to open PRs when Docker images have updates. Review and merge manually, then deploy.
+[Renovate](https://github.com/apps/renovate) opens PRs when new image versions are available. Review, merge, then:
 
-## Verify before pushing
+```bash
+git pull && ./scripts/deploy.sh
+```
+
+## Security
+
+Run before pushing:
 
 ```bash
 ./scripts/verify-no-secrets.sh
-gitleaks detect --source . --no-git
 ```
