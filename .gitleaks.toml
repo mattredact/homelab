@@ -1,0 +1,10 @@
+# Gitleaks config
+# https://github.com/gitleaks/gitleaks
+
+[extend]
+useDefault = true
+
+[allowlist]
+paths = [
+    '''.env\.example$''',
+]

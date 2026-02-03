@@ -1,0 +1,34 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:v1.2.0
+    container_name: homepage
+    security_opt:
+      - apparmor=unconfined
+    volumes:
+      - ./config:/app/config
+    ports:
+      - "127.0.0.1:3123:3123"
+    restart: unless-stopped
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: dash.${DOMAIN}
+      PORT: 3123
+      PUID: 1000
+      PGID: 1000
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homepage.entrypoints=http"
+      - "traefik.http.routers.homepage.rule=Host(`dash.${DOMAIN}`)"
+      - "traefik.http.middlewares.homepage-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.homepage.middlewares=homepage-https-redirect"
+      - "traefik.http.routers.homepage-secure.entrypoints=https"
+      - "traefik.http.routers.homepage-secure.rule=Host(`dash.${DOMAIN}`)"
+      - "traefik.http.routers.homepage-secure.tls=true"
+      - "traefik.http.routers.homepage-secure.service=homepage"
+      - "traefik.http.services.homepage.loadbalancer.server.port=3123"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true
