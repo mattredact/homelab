@@ -1,0 +1,31 @@
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+  external_labels:
+    cluster: 'homelab'
+
+scrape_configs:
+  # System Metrics - Node Exporters
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['node_exporter:9100']
+        labels:
+          instance: 'docker-host'
+      - targets: ['${PIHOLE_PRIMARY_IP}:9100']
+        labels:
+          instance: 'pihole-primary'
+      - targets: ['${PIHOLE_SECONDARY_IP}:9100']
+        labels:
+          instance: 'pihole-secondary'
+
+  # DNS Service Metrics - Unbound
+  - job_name: 'unbound'
+    static_configs:
+      - targets: ['${PIHOLE_PRIMARY_IP}:9167']
+        labels:
+          instance: 'pihole-primary'
+      - targets: ['${PIHOLE_SECONDARY_IP}:9167']
+        labels:
+          instance: 'pihole-secondary'
+    scrape_interval: 30s
+    scrape_timeout: 5s

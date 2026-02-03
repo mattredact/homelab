@@ -1,0 +1,23 @@
+# Secrets - NEVER commit
+.env
+secrets/
+cf_api_token.txt
+
+# Homepage config (contains API keys, internal URLs)
+homepage/config/
+
+# Generated from templates
+traefik/data/traefik.yml
+traefik/data/config.yml
+monitoring/config/prometheus/prometheus.yml
+
+# Persistent data
+bitwarden/data/
+monitoring/data/
+acme.json
+*.db
+
+# Editor
+.vscode/
+*.swp
+*~
