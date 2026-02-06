@@ -3,6 +3,7 @@ services:
     image: ghcr.io/bitwarden/lite:2025.12.2
     container_name: bitwarden
     restart: always
+    stop_grace_period: 30s
     volumes:
       - ./data:/etc/bitwarden
     environment:
