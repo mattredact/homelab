@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 21,
+  "id": 33,
   "links": [],
   "panels": [
     {
@@ -155,7 +155,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "datasource": {
@@ -251,7 +251,8 @@
                 "value": 0
               }
             ]
-          }
+          },
+          "unit": "s"
         },
         "overrides": [
           {
@@ -371,7 +372,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "datasource": {
@@ -578,7 +579,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "datasource": {
@@ -757,7 +758,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "datasource": {
@@ -843,7 +844,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "datasource": {
@@ -929,7 +930,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "datasource": {
@@ -1015,7 +1016,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "datasource": {
@@ -1069,7 +1070,7 @@
         "content": "",
         "mode": "html"
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "title": "Response Time Analysis",
       "type": "text"
     },
@@ -1094,7 +1095,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "title": "Recursion Time Tracking",
       "type": "text"
     },
@@ -1217,7 +1218,7 @@
         },
         "valueMode": "color"
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "datasource": {
@@ -1272,6 +1273,7 @@
               "type": "linear"
             },
             "showPoints": "always",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1349,7 +1351,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "datasource": {
@@ -1502,6 +1504,7 @@
           "fields": "",
           "values": false
         },
+        "sort": "desc",
         "tooltip": {
           "hideZeros": false,
           "maxHeight": 600,
@@ -1509,7 +1512,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "datasource": {
@@ -1667,6 +1670,7 @@
           "fields": "",
           "values": false
         },
+        "sort": "desc",
         "tooltip": {
           "hideZeros": false,
           "maxHeight": 600,
@@ -1674,7 +1678,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.2",
       "targets": [
         {
           "datasource": {
@@ -1724,7 +1728,7 @@
   ],
   "preload": false,
   "refresh": "5m",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [
     "unbound",
     "prometheus"
