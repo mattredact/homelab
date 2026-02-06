@@ -15,12 +15,20 @@ if grep -rE '10\.[0-9]+\.[0-9]+\.[0-9]+' \
     errors=1
 fi
 
-# Check for real hostnames/domains
-if grep -rE 'REDACTED|REDACTED|REDACTED|REDACTED|REDACTED' \
-    --include="*.yml" --include="*.yaml" --include="*.json" --include="*.md" \
-    --exclude-dir=".git" . 2>/dev/null; then
-    echo "FAIL: Found real hostnames/domains"
-    errors=1
+# Check for real hostnames/domains from patterns file
+patterns_file=".secrets-patterns"
+if [[ -f "$patterns_file" ]]; then
+    pattern=$(grep -v '^#' "$patterns_file" | grep -v '^$' | paste -sd'|')
+    if [[ -n "$pattern" ]]; then
+        if grep -rE "$pattern" \
+            --include="*.yml" --include="*.yaml" --include="*.json" --include="*.md" \
+            --exclude-dir=".git" . 2>/dev/null; then
+            echo "FAIL: Found real hostnames/domains"
+            errors=1
+        fi
+    fi
+else
+    echo "WARN: .secrets-patterns not found, skipping hostname check"
 fi
 
 # Check for email addresses (excluding example.com)
