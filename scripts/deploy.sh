@@ -53,7 +53,7 @@ echo "Deploying services..."
 for dir in traefik bitwarden monitoring homepage nebula-sync; do
     if [[ -d "$dir" ]]; then
         echo "  $dir..."
-        (cd "$dir" && docker compose pull --quiet && docker compose up -d)
+        (cd "$dir" && docker compose --env-file ../.env pull --quiet && docker compose --env-file ../.env up -d)
     fi
 done
 
