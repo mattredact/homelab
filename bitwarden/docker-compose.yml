@@ -3,6 +3,10 @@ services:
     image: ghcr.io/bitwarden/lite:2025.12.2
     container_name: bitwarden
     restart: always
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     volumes:
       - ./data:/etc/bitwarden
     environment:
