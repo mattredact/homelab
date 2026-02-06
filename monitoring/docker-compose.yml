@@ -36,7 +36,7 @@ services:
     container_name: grafana
     hostname: grafana
     restart: unless-stopped
-    user: "472:0"
+    user: "472:472"
     environment:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}

@@ -57,4 +57,7 @@ for dir in traefik bitwarden monitoring homepage nebula-sync; do
     fi
 done
 
+# Reload Prometheus config
+curl -sf -X POST http://127.0.0.1:9090/-/reload && echo "  Prometheus config reloaded" || echo "  WARN: Prometheus reload failed"
+
 echo "Done"

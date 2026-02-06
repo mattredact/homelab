@@ -1,5 +1,6 @@
 # Secrets - NEVER commit
 .env
+.secrets-patterns
 secrets/
 cf_api_token.txt
 
