@@ -29,6 +29,7 @@ services:
       - "traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN}`)"
       - "traefik.http.routers.prometheus.entrypoints=https"
       - "traefik.http.routers.prometheus.tls=true"
+      - "traefik.http.routers.prometheus.middlewares=default-whitelist@file"
       - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
 
   grafana:
@@ -63,6 +64,7 @@ services:
       - "traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN}`)"
       - "traefik.http.routers.grafana.entrypoints=https"
       - "traefik.http.routers.grafana.tls=true"
+      - "traefik.http.routers.grafana.middlewares=default-whitelist@file"
       - "traefik.http.services.grafana.loadbalancer.server.port=3000"
 
   node_exporter:

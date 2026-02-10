@@ -6,8 +6,7 @@ http:
         - "https"
       rule: "Host(`dns1.${DOMAIN}`)"
       middlewares:
-        - default-headers
-        - https-redirectscheme
+        - secured
       tls: {}
       service: pihole-primary
 
@@ -16,8 +15,7 @@ http:
         - "https"
       rule: "Host(`dns2.${DOMAIN}`)"
       middlewares:
-        - default-headers
-        - https-redirectscheme
+        - secured
       tls: {}
       service: pihole-secondary
 
@@ -26,8 +24,7 @@ http:
         - "https"
       rule: "Host(`dsm.${DOMAIN}`)"
       middlewares:
-        - default-headers
-        - https-redirectscheme
+        - secured
       tls: {}
       service: synology
 
@@ -35,6 +32,8 @@ http:
       entryPoints:
         - "https"
       rule: "Host(`unifi.${DOMAIN}`)"
+      middlewares:
+        - secured
       tls: {}
       service: unifi
 
@@ -43,8 +42,7 @@ http:
         - "https"
       rule: "Host(`proxmox.${DOMAIN}`)"
       middlewares:
-        - default-headers
-        - https-redirectscheme
+        - secured
       tls: {}
       service: proxmox
   #endregion
