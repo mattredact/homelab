@@ -1,6 +1,6 @@
 services:
   bitwarden:
-    image: ghcr.io/bitwarden/lite:2025.12.2
+    image: ghcr.io/bitwarden/lite:2026.1.1
     container_name: bitwarden
     restart: always
     stop_grace_period: 30s
