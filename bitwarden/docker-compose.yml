@@ -13,7 +13,7 @@ services:
       BW_DB_PROVIDER: sqlite
       BW_DB_FILE: /etc/bitwarden/vault.db
       BW_ENABLE_SSL: "false"
-      BW_ENABLE_ADMIN: "false"
+      BW_ENABLE_ADMIN: "true"
       globalSettings__baseServiceUri__vault: "https://bw.${DOMAIN}"
     networks:
       - proxy
