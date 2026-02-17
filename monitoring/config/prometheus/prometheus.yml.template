@@ -38,3 +38,14 @@ scrape_configs:
       - source_labels: [__address__]
         target_label: instance
         replacement: 'unbound-lxc'
+
+  - job_name: 'knot-lxc'
+    static_configs:
+      - targets: ['${PIHOLE_PRIMARY_IP}:8453']
+    metrics_path: /metrics/prometheus
+    scrape_interval: 30s
+    scrape_timeout: 5s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'knot-lxc'
