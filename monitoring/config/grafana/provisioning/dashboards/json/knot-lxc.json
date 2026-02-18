@@ -534,7 +534,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "(sum(rate(resolver_answer_cached_total{job=\"knot-lxc\"}[5m])) + sum(rate(resolver_answer_stale_total{job=\"knot-lxc\"}[5m]))) / sum(rate(resolver_answer_total{job=\"knot-lxc\"}[5m]))",
+          "expr": "(sum(rate(resolver_answer_cached_total{job=\"knot-lxc\"}[15m])) + sum(rate(resolver_answer_stale_total{job=\"knot-lxc\"}[15m]))) / sum(rate(resolver_answer_total{job=\"knot-lxc\"}[15m]))",
           "legendFormat": "Cache Hit Rate",
           "range": true,
           "refId": "A"
