@@ -377,7 +377,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(resolver_response_latency_sum{job=\"knot-lxc\"}) / sum(resolver_response_latency_count{job=\"knot-lxc\"})",
+          "expr": "sum(rate(resolver_response_latency_sum{job=\"knot-lxc\"}[5m])) / sum(rate(resolver_response_latency_count{job=\"knot-lxc\"}[5m]))",
           "instant": true,
           "legendFormat": "Avg Response Time",
           "range": false,
